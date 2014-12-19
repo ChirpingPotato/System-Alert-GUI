@@ -42,6 +42,9 @@ namespace System_Alert_GUI
             //System Uptime Refresh Loop (on by default)
             uptimeRefresh.Start();
             _sysUp = true;
+            //Voice Warning is on by Default
+            _cpuWarning = true;
+            _memWarning = true;
         }
 
         /// <summary>
@@ -114,9 +117,6 @@ namespace System_Alert_GUI
         /// </summary>
         public static void Watcher()
         {
-            //Voice Warning is on by Default
-            _cpuWarning = true;
-            _memWarning = true;
             //Pulls CPU load in Percent
             PerformanceCounter perfCpuCount = new PerformanceCounter("Processor Information", "% Processor Time", "_Total");
             perfCpuCount.NextValue();
