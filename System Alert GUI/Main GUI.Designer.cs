@@ -44,8 +44,8 @@
             this.checkBox2 = new System.Windows.Forms.CheckBox();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
-            this.richTextBox3 = new System.Windows.Forms.RichTextBox();
-            this.richTextBox4 = new System.Windows.Forms.RichTextBox();
+            this.memInput = new System.Windows.Forms.RichTextBox();
+            this.cpuInput = new System.Windows.Forms.RichTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.richTextBox2 = new System.Windows.Forms.RichTextBox();
@@ -201,39 +201,39 @@
             this.label3.TabIndex = 9;
             this.label3.Text = "Set available memory level at which a vocal warning is produced";
             // 
-            // richTextBox3
+            // memInput
             // 
-            this.richTextBox3.Location = new System.Drawing.Point(331, 129);
-            this.richTextBox3.Name = "richTextBox3";
-            this.richTextBox3.Size = new System.Drawing.Size(52, 21);
-            this.richTextBox3.TabIndex = 11;
-            this.richTextBox3.Text = "1024";
+            this.memInput.Location = new System.Drawing.Point(331, 129);
+            this.memInput.Name = "memInput";
+            this.memInput.Size = new System.Drawing.Size(52, 21);
+            this.memInput.TabIndex = 11;
+            this.memInput.Text = "1024";
             // 
-            // richTextBox4
+            // cpuInput
             // 
-            this.richTextBox4.Location = new System.Drawing.Point(303, 99);
-            this.richTextBox4.Name = "richTextBox4";
-            this.richTextBox4.Size = new System.Drawing.Size(52, 21);
-            this.richTextBox4.TabIndex = 12;
-            this.richTextBox4.Text = "80";
+            this.cpuInput.Location = new System.Drawing.Point(303, 99);
+            this.cpuInput.Name = "cpuInput";
+            this.cpuInput.Size = new System.Drawing.Size(52, 21);
+            this.cpuInput.TabIndex = 12;
+            this.cpuInput.Text = "80";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(389, 132);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(132, 13);
+            this.label4.Size = new System.Drawing.Size(23, 13);
             this.label4.TabIndex = 13;
-            this.label4.Text = "MB (Currently Unavailable)";
+            this.label4.Text = "MB";
             // 
             // label5
             // 
             this.label5.AutoSize = true;
             this.label5.Location = new System.Drawing.Point(361, 102);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(124, 13);
+            this.label5.Size = new System.Drawing.Size(15, 13);
             this.label5.TabIndex = 14;
-            this.label5.Text = "% (Currently Unavailable)";
+            this.label5.Text = "%";
             // 
             // richTextBox2
             // 
@@ -255,8 +255,8 @@
             this.Controls.Add(this.richTextBox2);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
-            this.Controls.Add(this.richTextBox4);
-            this.Controls.Add(this.richTextBox3);
+            this.Controls.Add(this.cpuInput);
+            this.Controls.Add(this.memInput);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.checkBox2);
@@ -294,8 +294,8 @@
         private System.Windows.Forms.CheckBox checkBox2;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.RichTextBox richTextBox3;
-        private System.Windows.Forms.RichTextBox richTextBox4;
+        private System.Windows.Forms.RichTextBox memInput;
+        private System.Windows.Forms.RichTextBox cpuInput;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ToolStripMenuItem placeholderToolStripMenuItem5;

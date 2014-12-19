@@ -22,6 +22,10 @@ namespace System_Alert_GUI
         public static bool _sysUp;
         public static bool _cpuWarning;
         public static bool _memWarning;
+        public static int _cpuStart;
+        public static int _memStart;
+        public static string _cpuBox;
+        public static string _memBox;
         public Form1()
         {
             InitializeComponent();
@@ -45,6 +49,14 @@ namespace System_Alert_GUI
             //Voice Warning is on by Default
             _cpuWarning = true;
             _memWarning = true;
+            //Value used to determine level when warning is given
+            _memStart = Convert.ToInt32(memInput.Text);
+            _memStart = int.Parse(memInput.Text);
+            _cpuStart = Convert.ToInt32(cpuInput.Text);
+            _cpuStart = int.Parse(cpuInput.Text);
+            //Sets strings to work with multiple threads
+            _memBox = memInput.Text;
+            _cpuBox = cpuInput.Text;
         }
 
         /// <summary>
@@ -55,6 +67,8 @@ namespace System_Alert_GUI
         private void exitToolStripMenuItem_Click(object sender, EventArgs e)
         {
             this.Close();
+            Thread watcher = new Thread(new ThreadStart(Watcher));
+            watcher.Abort();
         }
 
         /// <summary>
@@ -64,12 +78,21 @@ namespace System_Alert_GUI
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
+            _memStart = Convert.ToInt32(memInput.Text);
+            _memStart = int.Parse(memInput.Text);
+            _cpuStart = Convert.ToInt32(cpuInput.Text);
+            _cpuStart = int.Parse(cpuInput.Text);
             button1.Enabled = false;
             button3.Enabled = true;
+            richTextBox2.Clear();
             richTextBox2.AppendText("System Alert has been started! You may now minimize this tab!\r\n");
             _isMonitoring = true;
             Thread watcher = new Thread(new ThreadStart(Watcher));
             watcher.Start();
+            string cpuBase = string.Format("You have selected a verbal warning to be activated at {0}% CPU usage\r\n", _cpuStart);
+            richTextBox2.AppendText(cpuBase);
+            string memBase = string.Format("You have selected a verbal warning to be activated when there is {0}MB of available memory\r\n", _memStart);
+            richTextBox2.AppendText(memBase);
         }
 
         /// <summary>
@@ -117,6 +140,10 @@ namespace System_Alert_GUI
         /// </summary>
         public static void Watcher()
         {
+            _memStart = Convert.ToInt32(_memBox);
+            _memStart = int.Parse(_memBox);
+            _cpuStart = Convert.ToInt32(_cpuBox);
+            _cpuStart = int.Parse(_cpuBox);
             //Pulls CPU load in Percent
             PerformanceCounter perfCpuCount = new PerformanceCounter("Processor Information", "% Processor Time", "_Total");
             perfCpuCount.NextValue();
@@ -130,7 +157,7 @@ namespace System_Alert_GUI
 
             while (_isMonitoring)
             {
-                if (currentCpuPercentage > 80 & _cpuWarning)
+                if (currentCpuPercentage > _cpuStart & _cpuWarning)
                 {
                     if (currentCpuPercentage > 100)
                     {
@@ -143,7 +170,7 @@ namespace System_Alert_GUI
                         Speak(cpuLoadVocalMessage, VoiceGender.Female, 2);
                     }
                 }
-                if (currentAvailableMemory < 1024 & _memWarning)
+                if (currentAvailableMemory < _memStart & _memWarning)
                 {
                     string memAvailableLoadVocalMessage = String.Format("You currently have {0} megabytes of memory available", currentAvailableMemory);
                     Speak(memAvailableLoadVocalMessage, VoiceGender.Female, 2);
@@ -211,6 +238,9 @@ namespace System_Alert_GUI
             Form3 frm = new Form3();
             frm.ShowDialog();
         }
+        /// <summary>
+        /// Writes uptime to richTextBox2
+        /// </summary>
         private void writeUp()
         { 
             while(_sysUp)
@@ -240,11 +270,20 @@ namespace System_Alert_GUI
         {
             richTextBox2.Clear();
         }
+        /// <summary>
+        /// Toggles CPU warning when checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkBox1_CheckedChanged(object sender, EventArgs e)
         {
             _cpuWarning = !_cpuWarning;
         }
-
+        /// <summary>
+        /// Toggles available memory warning when checked
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             _memWarning = !_memWarning;
